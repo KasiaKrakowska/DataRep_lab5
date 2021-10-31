@@ -7,6 +7,18 @@ const app = express()
 const port = 3000
 //module provides utilities for working with file and directory paths
 const path = require('path');
+//responsible for parsing the incoming request bodies in a middleware before handling it
+const bodyParser = require("body-parser");
+
+//parse application/www-form-urlencoded
+//The extended option allows to choose between parsing the URL-encoded data 
+//with the querystring library (when false) or the qs library (when true). 
+//The “extended” syntax allows for rich objects and arrays to be encoded into the URL-encoded format, 
+//allowing for a JSON-like experience with URL-encoded
+app.use(bodyParser.urlencoded({ extended: false }))
+//parse application/json
+app.use(bodyParser.json())
+
 
 //function define a route handler for GET requests to a given URL (Text)
 app.get('/', (req, res) => {
@@ -56,7 +68,13 @@ app.get('/test', (req, res) => {
 //function define a route handler for GET requests to a given URL (form data)
 app.get('/name', (req, res) => {
     //This function sends first and last name from form in the response
-    res.send('Hello ' + req.query.fname + ' ' +req.query.lname);
+    res.send('Hello ' + req.query.fname + ' ' + req.query.lname);
+})
+
+//function define a route handler for POST requests using the BODY (form data)
+app.post('/name', (req, res) => {
+    //This function sends first and last name from form in the response
+    res.send('Hello ' + req.body.fname + ' ' + req.body.lname);
 })
 
 //used to bind and listen the connections on the specified host and port
