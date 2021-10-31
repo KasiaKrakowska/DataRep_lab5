@@ -44,13 +44,19 @@ app.get('/api/movies', (req, res) => {
     ];
 
     //This function sends JSON data in the response 
-    res.json({movies: mymovies});
+    res.json({ movies: mymovies });
 })
 
 //function define a route handler for GET requests to a given URL (HTML page)
 app.get('/test', (req, res) => {
     //This function sends html file in the response
     res.sendFile(__dirname + '/index.html');
+})
+
+//function define a route handler for GET requests to a given URL (form data)
+app.get('/name', (req, res) => {
+    //This function sends first and last name from form in the response
+    res.send('Hello ' + req.query.fname + ' ' +req.query.lname);
 })
 
 //used to bind and listen the connections on the specified host and port
