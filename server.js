@@ -5,15 +5,17 @@ const express = require('express')
 const app = express()
 //This app starts a server and listens on port 3000 for connections
 const port = 3000
+//module provides utilities for working with file and directory paths
+const path = require('path');
 
-//function define a route handler for GET requests to a given URL
+//function define a route handler for GET requests to a given URL (Text)
 app.get('/', (req, res) => {
     //This function accepts a single parameter body that describe the body
     // which is to be sent in the response
     res.send('Welcome to Data Representation & Querying.')
 })
 
-//function define a route handler for GET requests to a given URL
+//function define a route handler for GET requests to a given URL (Text with NAME)
 app.get('/hello/:name', (req, res) => {
     //identifies name request
     console.log(req.params.name)
@@ -21,7 +23,7 @@ app.get('/hello/:name', (req, res) => {
     res.send('Hello ' + req.params.name);
 })
 
-//function define a route handler for GET requests to a given URL
+//function define a route handler for GET requests to a given URL (JSON)
 app.get('/api/movies', (req, res) => {
     //creates variable with movies json data
     const mymovies = [
@@ -43,6 +45,12 @@ app.get('/api/movies', (req, res) => {
 
     //This function sends JSON data in the response 
     res.json({movies: mymovies});
+})
+
+//function define a route handler for GET requests to a given URL (HTML page)
+app.get('/test', (req, res) => {
+    //This function sends html file in the response
+    res.sendFile(__dirname + '/index.html');
 })
 
 //used to bind and listen the connections on the specified host and port
